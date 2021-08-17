@@ -105,11 +105,11 @@ unsigned long mytime=0;
 void loop()
 {
 
-    float v=0.5;
-    float w=0.0;
+    float v=0.2;
+    float w=0.5;
 
     float *wheel;
-    float nl,nr,r=20.0,b=50.0,c=12.0*295.0;
+    float nl,nr,r=0.016,b=0.093,c=3500;
     float *pose;
     float *linear;
     float *G;
@@ -118,17 +118,17 @@ void loop()
     {
     mytime=millis();
 
-    valLeft=knobLeft.read();
-    valRight=knobRight.read();  
+    valLeft=  knobLeft.read();
+    valRight= knobRight.read();  
     newLeft = valLeft-positionLeft;
     newRight = valRight-positionRight;
    
-   /* Serial.print("Left = ");
+    Serial.print("Left = ");
     Serial.print(newLeft);
     Serial.print(", Right = ");
     Serial.print(newRight);
     Serial.println();
-  */
+  
     positionLeft =  valLeft;
     positionRight =  valRight;
     nl=newLeft;
@@ -162,12 +162,13 @@ void loop()
       Serial.print(G[1]);
       Serial.println("  ");
 
+
        if(v== 0.0 && w == 0.0)
     {
-        analogWrite(4,G[0]);
+        analogWrite(4,0);
         digitalWrite(5,LOW);
         digitalWrite(6,LOW);
-        analogWrite(9,G[1]);
+        analogWrite(9,0);
     }
     else
     {
@@ -175,21 +176,21 @@ void loop()
        if(G[0]<0)
        {
         analogWrite(4,G[0]);
-        digitalWrite(5,LOW);
+        digitalWrite(5,HIGH);
        }
        if(G[1]<0)
        {
-        digitalWrite(6,LOW);
+        digitalWrite(6,HIGH);
         analogWrite(9,G[1]);
         }
        if(G[0]>0)
        {
         analogWrite(4,G[0]);
-        digitalWrite(5,HIGH);
+        digitalWrite(5,LOW);
        }
        if(G[1]>0)
        {
-        digitalWrite(6,HIGH);
+        digitalWrite(6,LOW);
         analogWrite(9,G[1]);
         }
       
